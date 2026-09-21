@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Wallet, Menu, X } from 'lucide-react';
 import NavItem from './components/NavItem';
 import GridLines from './components/GridLines';
@@ -11,13 +11,44 @@ const navItems = [
   { number: '04', label: 'GOVERNANCE', delay: 650 },
 ];
 
+function useScrollProgress() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let ticking = false;
+    const update = () => {
+      const vh = window.innerHeight || 1;
+      setProgress(Math.min(Math.max(window.scrollY / vh, 0), 1));
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', update);
+    };
+  }, []);
+
+  return progress;
+}
+
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const progress = useScrollProgress();
 
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-black">
+    <div className="relative bg-black" style={{ height: '200vh' }}>
+    <section className="sticky top-0 w-full h-screen overflow-hidden bg-black">
       <video
         className="absolute inset-0 w-full h-full object-cover anim-fade-in"
+        style={{ transform: `scale(${1 + progress * 0.14}) translateY(${progress * 36}px)` }}
         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_115057_94c3699b-0fd1-4124-bcf3-3626bb8c1f77.mp4"
         autoPlay
         muted
@@ -148,24 +179,32 @@ export default function App() {
         </div>
 
         {/* ============ H1 ============ */}
-        <h1
-          className="font-graphik text-white font-normal leading-[1em] absolute anim-fade-up
-            text-[32px] sm:text-[48px] md:text-[68px]
-            top-[140px] sm:top-[160px] md:top-[178px]
-            left-5 md:left-[35px]
-            max-w-[300px] sm:max-w-[420px] md:max-w-[554px]"
-          style={{ animationDelay: '400ms' }}
+        <div
+          className="absolute top-[140px] sm:top-[160px] md:top-[178px] left-5 md:left-[35px]"
+          style={{ transform: `translateY(${progress * -46}px)`, opacity: 1 - progress * 0.85 }}
         >
-          Liquid Assets. Luminous Returns.
-        </h1>
+          <h1
+            className="font-graphik text-white font-normal leading-[1em] anim-fade-up
+              text-[32px] sm:text-[48px] md:text-[68px]
+              max-w-[300px] sm:max-w-[420px] md:max-w-[554px]"
+            style={{ animationDelay: '400ms' }}
+          >
+            Liquid Assets. Luminous Returns.
+          </h1>
+        </div>
 
-        <GridLines />
-        <CentralNodes />
+        <div className="absolute inset-0" style={{ transform: `translateY(${progress * -70}px)` }}>
+          <GridLines />
+        </div>
+        <div className="absolute inset-0" style={{ transform: `translateY(${progress * -110}px)`, opacity: 1 - progress * 0.5 }}>
+          <CentralNodes />
+        </div>
 
         {/* ============ BOTTOM ROW ============ */}
         <div
           className="absolute bottom-5 md:bottom-[35px] left-5 md:left-[35px] right-5 md:right-[35px]
             flex flex-col md:flex-row items-start md:items-end justify-between gap-5 md:gap-0"
+          style={{ transform: `translateY(${progress * 24}px)`, opacity: 1 - progress * 0.7 }}
         >
           <button
             className="bg-[#AFDDFF] px-[16px] md:px-[20px] py-[10px] md:py-[12px] flex items-center gap-[10px]
@@ -207,7 +246,39 @@ export default function App() {
             </div>
           </div>
         </div>
+
+        {/* ============ SCROLL HINT ============ */}
+        <div
+          className="absolute bottom-5 md:bottom-[35px] left-1/2 -translate-x-1/2 flex flex-col items-center gap-[6px] anim-fade-in"
+          style={{ animationDelay: '1600ms', opacity: 1 - progress * 3 }}
+        >
+          <span className="font-manrope text-white/50 text-[11px] uppercase tracking-[0.2em]">Scroll</span>
+          <span className="w-px h-[26px] bg-gradient-to-b from-white/50 to-transparent" />
+        </div>
       </div>
     </section>
+
+    {/* ============ REVEAL PANEL ============ */}
+    <div className="relative z-20 h-screen w-full flex items-center justify-center bg-black border-t border-white/10">
+      <div
+        className="text-center px-5"
+        style={{
+          transform: `translateY(${(1 - progress) * 24}px)`,
+          opacity: progress,
+        }}
+      >
+        <span className="font-manrope text-[#AFDDFF] text-[12px] uppercase tracking-[0.25em]">LŪMEN // ÍNDEX</span>
+        <p className="font-graphik text-white font-normal text-[28px] sm:text-[36px] md:text-[46px] leading-[1.2] max-w-[680px] mx-auto mt-[20px]">
+          Clarity compounds. So does trust.
+        </p>
+        <button className="bg-[#AFDDFF] px-[20px] py-[12px] inline-flex items-center gap-[10px] hover:bg-[#c8e8ff] transition-colors mt-[36px]">
+          <span className="text-black text-[16px] leading-none">&#10022;</span>
+          <span className="font-manrope text-black text-[13px] leading-[15.6px] uppercase tracking-wide">
+            Explore Private Banking
+          </span>
+        </button>
+      </div>
+    </div>
+    </div>
   );
 }
