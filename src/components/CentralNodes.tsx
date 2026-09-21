@@ -18,9 +18,9 @@ const nodes: Node[] = [
     labelPos: 'top-[11%] left-[26%]',
     labelAnim: 'anim-slide-left',
     labelDelay: 1100,
-    title: '[ CORE_ENTITY ]',
-    description: 'Neural node processing real-time data streams.',
-    maxW: 'max-w-[160px]',
+    title: '[ ДОВЕРИЕ ]',
+    description: 'Сайт показывает, что бизнес серьёзный и никуда не денется завтра.',
+    maxW: 'max-w-[170px]',
   },
   {
     squarePos: 'top-[58%] left-[32%]',
@@ -28,9 +28,9 @@ const nodes: Node[] = [
     labelPos: 'top-[76%] left-[3%]',
     labelAnim: 'anim-slide-left',
     labelDelay: 1400,
-    title: '[ LUMINOUS_INSIGHT ]',
-    description: 'Deep-learning engine synthesizing raw inputs.',
-    maxW: 'max-w-[160px]',
+    title: '[ РАБОТА_24/7 ]',
+    description: 'Заявки приходят даже ночью — без участия менеджера.',
+    maxW: 'max-w-[170px]',
   },
   {
     squarePos: 'top-[63%] left-[50%]',
@@ -38,9 +38,9 @@ const nodes: Node[] = [
     labelPos: 'top-[50%] left-[78%]',
     labelAnim: 'anim-slide-right',
     labelDelay: 1700,
-    title: '[ CONNECTIVITY ]',
-    description: 'Latency-free transmission across distributed networks.',
-    maxW: 'max-w-[180px]',
+    title: '[ НЕЗАВИСИМОСТЬ ]',
+    description: 'Сайт принадлежит вам — никто не поменяет тут правила.',
+    maxW: 'max-w-[190px]',
   },
 ];
 
