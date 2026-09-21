@@ -7,7 +7,9 @@ export default function ClosingSection() {
       className="relative z-20 px-5 md:px-[35px] py-[100px] md:py-[160px] border-t border-white/10 flex items-center justify-center text-center"
     >
       <Reveal className="max-w-[680px]">
-        <span className="font-manrope text-white text-[12px] uppercase tracking-[0.25em]">LŪMEN // ÍNDEX</span>
+        <span className="font-graphik text-white text-[12px] uppercase tracking-[0.25em] font-semibold">
+          На твоё усмотрение
+        </span>
         <p className="font-graphik text-white font-normal text-[28px] sm:text-[36px] md:text-[46px] leading-[1.25] mt-[24px]">
           Сайт не гарантирует продажи сам по себе. Но без него бизнес теряет клиентов там, где их даже не видно.
         </p>

@@ -61,8 +61,9 @@ export default function BenefitsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10 mt-[56px] md:mt-[72px]">
           {benefits.map((b, i) => (
-            <Reveal key={b.num} delay={(i % 3) * 90} className="bg-black">
-              <div className="h-full p-[28px] md:p-[34px] hover:bg-white/[0.03] transition-colors">
+            <Reveal key={b.num} delay={(i % 3) * 90} className="bg-black group relative overflow-hidden">
+              <span className="absolute left-0 right-0 top-0 h-px bg-white scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+              <div className="h-full p-[28px] md:p-[34px] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:bg-white/[0.03] group-hover:-translate-y-[4px]">
                 <span className="font-manrope text-white/40 text-[12px] tracking-[0.16em]">{b.num}</span>
                 <h3 className="font-graphik text-white text-[20px] md:text-[23px] font-normal leading-[1.2] mt-[18px] mb-[14px]">
                   {b.title}

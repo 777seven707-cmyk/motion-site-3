@@ -49,6 +49,7 @@ export default function App() {
 
   return (
     <div className="relative bg-black">
+      <div className="grain" aria-hidden="true" />
       <StarField scrollY={scrollY} />
       <div className="relative" style={{ height: '160vh' }}>
         <section className="sticky top-0 w-full h-screen overflow-hidden">
@@ -73,10 +74,16 @@ export default function App() {
             <nav className="absolute top-0 left-0 w-full flex items-center px-5 md:px-[35px] py-5 md:py-[27px]">
               <div className="flex items-center gap-[40px]">
                 <span
-                  className="font-graphik text-white text-[18px] md:text-[21px] leading-[21px] whitespace-nowrap anim-fade-up"
+                  className="flex items-center gap-[10px] anim-fade-up"
                   style={{ animationDelay: '200ms' }}
                 >
-                  LŪMEN // ÍNDEX
+                  <svg viewBox="0 0 32 32" width="24" height="24" className="text-white shrink-0">
+                    <circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" strokeWidth="2" />
+                    <path d="M9 21V11l14 10V11" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" />
+                  </svg>
+                  <span className="font-graphik text-white text-[14px] md:text-[16px] leading-[1.15] uppercase tracking-[0.02em] font-semibold whitespace-nowrap">
+                    На твоё усмотрение
+                  </span>
                 </span>
 
                 <div className="hidden lg:flex items-center gap-[40px]">

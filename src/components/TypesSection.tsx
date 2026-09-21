@@ -37,9 +37,10 @@ export default function TypesSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 mt-[56px] md:mt-[72px]">
           {types.map((t, i) => (
-            <Reveal key={t.title} delay={(i % 4) * 70} className="bg-black">
-              <div className="h-full p-[24px] hover:bg-white/[0.03] transition-colors">
-                <span className="inline-block font-manrope text-[10px] text-white/50 uppercase tracking-[0.12em] px-[9px] py-[4px] border border-white/15">
+            <Reveal key={t.title} delay={(i % 4) * 70} className="bg-black group relative overflow-hidden">
+              <span className="absolute left-0 right-0 top-0 h-px bg-white scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+              <div className="h-full p-[24px] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:bg-white/[0.03] group-hover:-translate-y-[3px]">
+                <span className="inline-block font-manrope text-[10px] text-white/50 uppercase tracking-[0.12em] px-[9px] py-[4px] border border-white/15 group-hover:border-white/40 transition-colors">
                   {t.tag}
                 </span>
                 <h3 className="font-graphik text-white text-[16px] font-normal leading-[1.3] mt-[16px] mb-[10px]">
