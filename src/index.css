@@ -5,8 +5,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { background: #000; overflow-x: hidden; }
 
-.font-graphik { font-family: 'Graphik LCG Regular Regular', 'Graphik LCG', sans-serif; }
-.font-manrope { font-family: 'Manrope', sans-serif; }
+.font-graphik { font-family: 'Unbounded', sans-serif; }
+.font-manrope { font-family: 'Inter', sans-serif; }
 
 @keyframes fadeUp      { from { opacity: 0; transform: translateY(18px); }  to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeIn      { from { opacity: 0; }                                to { opacity: 1; } }
@@ -25,3 +25,21 @@ body { background: #000; overflow-x: hidden; }
 .anim-grid-v      { opacity: 0; transform-origin: top;  animation: gridReveal  1.2s cubic-bezier(0.16,1,0.3,1) forwards; }
 .anim-grid-h      { opacity: 0; transform-origin: left; animation: gridRevealH 1.2s cubic-bezier(0.16,1,0.3,1) forwards; }
 .anim-draw-line   { stroke-dasharray: 100; stroke-dashoffset: 100; animation: drawLine 1s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+@keyframes nodePulse  { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.035); } }
+@keyframes lineFlow   { to { stroke-dashoffset: -48; } }
+@keyframes starTwinkle{ 0%, 100% { opacity: var(--star-min, 0.15); } 50% { opacity: var(--star-max, 0.9); } }
+@keyframes starDrift  { from { transform: translateY(0); } to { transform: translateY(-40px); } }
+
+.anim-node-pulse  { animation: nodePulse 3.4s ease-in-out infinite; }
+.anim-line-flow   { stroke-dasharray: 7 7; animation: lineFlow 2.6s linear infinite; }
+.star             { animation: starTwinkle var(--star-dur, 3s) ease-in-out infinite; animation-delay: var(--star-delay, 0s); }
+
+.anim-node-pulse-in {
+  opacity: 0;
+  animation-name: scaleIn, nodePulse;
+  animation-duration: 0.7s, 3.4s;
+  animation-timing-function: cubic-bezier(0.16,1,0.3,1), ease-in-out;
+  animation-fill-mode: forwards, none;
+  animation-iteration-count: 1, infinite;
+}

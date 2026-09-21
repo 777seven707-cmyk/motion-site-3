@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import NavItem from './components/NavItem';
 import GridLines from './components/GridLines';
 import CentralNodes from './components/CentralNodes';
+import StarField from './components/StarField';
 import BenefitsSection from './components/BenefitsSection';
 import TypesSection from './components/TypesSection';
 import CompareSection from './components/CompareSection';
@@ -15,42 +16,42 @@ const navItems = [
   { number: '04', label: 'ИТОГ', href: '#cta', delay: 650 },
 ];
 
-function useScrollProgress() {
-  const [progress, setProgress] = useState(0);
+// Плавный, "догоняющий" скролл: сглаживаем реальную позицию скролла (lerp)
+// каждый кадр, вместо того чтобы дёргать параллакс 1:1 за событием scroll.
+function useSmoothScroll() {
+  const [smoothY, setSmoothY] = useState(0);
+  const targetRef = useRef(0);
+  const smoothRef = useRef(0);
 
   useEffect(() => {
-    let ticking = false;
-    const update = () => {
-      const vh = window.innerHeight || 1;
-      setProgress(Math.min(Math.max(window.scrollY / vh, 0), 1));
-      ticking = false;
-    };
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(update);
-        ticking = true;
+    let raf: number;
+    const loop = () => {
+      targetRef.current = window.scrollY;
+      smoothRef.current += (targetRef.current - smoothRef.current) * 0.085;
+      if (Math.abs(targetRef.current - smoothRef.current) < 0.05) {
+        smoothRef.current = targetRef.current;
       }
+      setSmoothY(smoothRef.current);
+      raf = requestAnimationFrame(loop);
     };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', update);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', update);
-    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
   }, []);
 
-  return progress;
+  return smoothY;
 }
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const progress = useScrollProgress();
+  const scrollY = useSmoothScroll();
+  const vh = typeof window !== 'undefined' ? window.innerHeight || 1 : 1;
+  const progress = Math.min(Math.max(scrollY / vh, 0), 1);
 
   return (
     <div className="relative bg-black">
+      <StarField scrollY={scrollY} />
       <div className="relative" style={{ height: '160vh' }}>
-        <section className="sticky top-0 w-full h-screen overflow-hidden bg-black">
+        <section className="sticky top-0 w-full h-screen overflow-hidden">
           <video
             className="absolute inset-0 w-full h-full object-cover anim-fade-in"
             style={{
@@ -147,7 +148,7 @@ export default function App() {
                       style={{ transitionDelay: menuOpen ? `${150 + i * 75}ms` : '0ms' }}
                     >
                       <div className="flex items-center gap-3">
-                        <span className="font-manrope text-[#AFDDFF]/80 text-[14px] leading-[1]">{item.number}.</span>
+                        <span className="font-manrope text-white/60 text-[14px] leading-[1]">{item.number}.</span>
                         <span className="font-manrope text-white text-[28px] leading-[1.2] tracking-tight">
                           {item.label}
                         </span>
@@ -184,8 +185,8 @@ export default function App() {
             <div className="absolute bottom-5 md:bottom-[35px] left-5 md:left-[35px] right-5 md:right-[35px] flex flex-col md:flex-row items-start md:items-end justify-between gap-5 md:gap-0">
               <a
                 href="#benefits"
-                className="bg-[#AFDDFF] px-[16px] md:px-[20px] py-[10px] md:py-[12px] flex items-center gap-[10px]
-                  hover:bg-[#c8e8ff] transition-colors anim-fade-up"
+                className="bg-white px-[16px] md:px-[20px] py-[10px] md:py-[12px] flex items-center gap-[10px]
+                  hover:bg-white/85 transition-colors anim-fade-up"
                 style={{ animationDelay: '900ms' }}
               >
                 <span className="text-black text-[16px] leading-none">&#10022;</span>
@@ -195,7 +196,7 @@ export default function App() {
               </a>
 
               <div className="relative max-w-[280px] hidden sm:block anim-slide-right" style={{ animationDelay: '1100ms' }}>
-                <span className="font-manrope text-black text-[13px] leading-[15.6px] bg-[#AFDDFF] px-[6px] py-[2px] inline-block mb-[10px]">
+                <span className="font-manrope text-black text-[13px] leading-[15.6px] bg-white px-[6px] py-[2px] inline-block mb-[10px]">
                   СПРАВОЧНИК ПО ПОЛЬЗЕ САЙТА
                 </span>
 
@@ -208,7 +209,7 @@ export default function App() {
                     <polygon
                       points="0.5,0.5 279.5,0.5 279.5,167.5 30,167.5 0.5,137.5"
                       fill="none"
-                      stroke="#AFDDFF"
+                      stroke="#ffffff"
                       strokeWidth="1"
                       vectorEffect="non-scaling-stroke"
                     />
@@ -219,7 +220,7 @@ export default function App() {
                   </p>
                   <a
                     href="#types"
-                    className="relative block font-manrope text-[#AFDDFF] text-[13px] leading-[15.6px] cursor-pointer hover:underline"
+                    className="relative block font-manrope text-white text-[13px] leading-[15.6px] cursor-pointer hover:underline"
                   >
                     СМОТРЕТЬ_ВИДЫ_БИЗНЕСА
                   </a>

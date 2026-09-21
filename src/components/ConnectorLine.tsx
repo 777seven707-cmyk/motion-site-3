@@ -17,9 +17,11 @@ export default function ConnectorLine({ x1, y1, x2, y2, delay }: ConnectorLinePr
         y1={y1}
         x2={x2}
         y2={y2}
-        stroke="rgba(255,255,255,0.25)"
+        stroke="rgba(255,255,255,0.35)"
         strokeWidth="1"
         vectorEffect="non-scaling-stroke"
+        className="anim-line-flow"
+        style={{ animationDelay: `${delay}ms` }}
       />
     </svg>
   );

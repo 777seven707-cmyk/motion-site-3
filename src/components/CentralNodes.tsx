@@ -78,8 +78,8 @@ export default function CentralNodes() {
       {nodes.map((node) => (
         <div
           key={`${node.title}-square`}
-          className={`absolute ${node.squarePos} w-[80px] h-[80px] lg:w-[100px] lg:h-[100px] border border-white/80 anim-scale-in`}
-          style={{ animationDelay: `${node.squareDelay}ms` }}
+          className={`absolute ${node.squarePos} w-[80px] h-[80px] lg:w-[100px] lg:h-[100px] border border-white/80 anim-node-pulse-in`}
+          style={{ animationDelay: `${node.squareDelay}ms, ${node.squareDelay + 700}ms` }}
         />
       ))}
     </div>

@@ -20,10 +20,10 @@ const withSite = [
 
 export default function CompareSection() {
   return (
-    <section id="compare" className="relative z-20 bg-black px-5 md:px-[35px] py-[80px] md:py-[140px] border-t border-white/10">
+    <section id="compare" className="relative z-20 px-5 md:px-[35px] py-[80px] md:py-[140px] border-t border-white/10">
       <div className="max-w-[1280px] mx-auto">
         <Reveal>
-          <span className="font-manrope text-[#AFDDFF]/80 text-[12px] leading-[15.6px] uppercase tracking-[0.16em]">
+          <span className="font-manrope text-white/60 text-[12px] leading-[15.6px] uppercase tracking-[0.16em]">
             03 / Разница
           </span>
         </Reveal>
@@ -49,11 +49,11 @@ export default function CompareSection() {
           </Reveal>
           <Reveal delay={100} className="bg-black">
             <div className="h-full p-[32px] md:p-[40px]">
-              <span className="font-manrope text-[#AFDDFF] text-[12px] uppercase tracking-[0.16em]">С сайтом</span>
+              <span className="font-manrope text-white text-[12px] uppercase tracking-[0.16em]">С сайтом</span>
               <ul className="mt-[24px] flex flex-col gap-[16px]">
                 {withSite.map((item) => (
                   <li key={item} className="font-manrope text-white/80 text-[14px] leading-[1.55] flex gap-[12px]">
-                    <span className="text-[#AFDDFF] shrink-0">✦</span>
+                    <span className="text-white shrink-0">✦</span>
                     {item}
                   </li>
                 ))}

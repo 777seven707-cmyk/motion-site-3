@@ -41,10 +41,10 @@ const benefits = [
 
 export default function BenefitsSection() {
   return (
-    <section id="benefits" className="relative z-20 bg-black px-5 md:px-[35px] py-[80px] md:py-[140px]">
+    <section id="benefits" className="relative z-20 px-5 md:px-[35px] py-[80px] md:py-[140px]">
       <div className="max-w-[1280px] mx-auto">
         <Reveal>
-          <span className="font-manrope text-[#AFDDFF]/80 text-[12px] leading-[15.6px] uppercase tracking-[0.16em]">
+          <span className="font-manrope text-white/60 text-[12px] leading-[15.6px] uppercase tracking-[0.16em]">
             01 / Плюсы
           </span>
         </Reveal>
