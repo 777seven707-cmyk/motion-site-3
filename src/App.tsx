@@ -66,6 +66,10 @@ export default function App() {
             playsInline
           />
 
+          {/* Сглаживает переход в следующую секцию — без этого край видео
+              внутри sticky-блока обрывается резкой линией на стыке. */}
+          <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-b from-transparent via-black/70 to-black pointer-events-none" />
+
           <div
             className="relative z-10 w-full h-full"
             style={{ filter: `blur(${progress * 10}px)`, opacity: 1 - progress * 0.35 }}
